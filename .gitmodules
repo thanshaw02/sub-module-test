@@ -1,3 +1,6 @@
 [submodule "sub-module-two"]
 	path = sub-module-two
 	url = https://github.com/thanshaw02/receipt-api-kotlin
+[submodule "sub-module-one"]
+	path = sub-module-one
+	url = https://github.com/thanshaw02/receipt-api-rust
