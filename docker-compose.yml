@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+    sub-module-db:
+        image: postgres:14.4-alpine
+        container_name: pg-db
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        ports:
+            - '5432:5432'
+
+    backend:
+        build:
+            context: ./sub-module-one
+            dockerfile: Dockerfile.dev
+        ports:
+            - 8000:8000
+        env_file:
+            - ./.env
+        depends_on:
+            - sub-module-db
+        volumes:
+            - ./sub-module-one/src:/usr/app/src
+
+    web:
+        build:
+            context: ./sub-module-two
+            dockerfile: Dockerfile.dev
+        ports:
+            - 3000:3000
+        env_file:
+            - ./.env
+        depends_on:
+            - backend
